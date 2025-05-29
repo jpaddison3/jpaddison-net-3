@@ -1,69 +1,92 @@
-import Link from "next/link";
+import Image from "next/image";
 
-import { LatestPost } from "~/app/_components/post";
-import { auth } from "~/server/auth";
-import { api, HydrateClient } from "~/trpc/server";
-
-export default async function Home() {
-  const hello = await api.post.hello({ text: "from tRPC" });
-  const session = await auth();
-
-  if (session?.user) {
-    void api.post.getLatest.prefetch();
-  }
-
+export default function Home() {
   return (
-    <HydrateClient>
-      <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c] text-white">
-        <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16">
-          <h1 className="text-5xl font-extrabold tracking-tight sm:text-[5rem]">
-            Create <span className="text-[hsl(280,100%,70%)]">T3</span> App
-          </h1>
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-8">
-            <Link
-              className="flex max-w-xs flex-col gap-4 rounded-xl bg-white/10 p-4 hover:bg-white/20"
-              href="https://create.t3.gg/en/usage/first-steps"
-              target="_blank"
-            >
-              <h3 className="text-2xl font-bold">First Steps →</h3>
-              <div className="text-lg">
-                Just the basics - Everything you need to know to set up your
-                database and authentication.
-              </div>
-            </Link>
-            <Link
-              className="flex max-w-xs flex-col gap-4 rounded-xl bg-white/10 p-4 hover:bg-white/20"
-              href="https://create.t3.gg/en/introduction"
-              target="_blank"
-            >
-              <h3 className="text-2xl font-bold">Documentation →</h3>
-              <div className="text-lg">
-                Learn more about Create T3 App, the libraries it uses, and how
-                to deploy it.
-              </div>
-            </Link>
-          </div>
-          <div className="flex flex-col items-center gap-2">
-            <p className="text-2xl text-white">
-              {hello ? hello.greeting : "Loading tRPC query..."}
+    <main className="min-h-screen bg-gray-50 font-serif">
+      <div className="container mx-auto max-w-4xl px-4 py-16">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 md:items-center">
+          <div className="space-y-4">
+            <h1 className="font-sans text-4xl font-bold text-[#71eeb8] md:text-5xl">
+              JP Addison
+            </h1>
+            
+            <p className="text-lg leading-relaxed text-gray-800">
+              is a technologist and{" "}
+              <a 
+                href="https://www.effectivealtruism.org/articles/introduction-to-effective-altruism/"
+                className="text-[#f50057] hover:underline"
+              >
+                effective altruist
+              </a>
+              .
             </p>
 
-            <div className="flex flex-col items-center justify-center gap-4">
-              <p className="text-center text-2xl text-white">
-                {session && <span>Logged in as {session.user?.name}</span>}
-              </p>
-              <Link
-                href={session ? "/api/auth/signout" : "/api/auth/signin"}
-                className="rounded-full bg-white/10 px-10 py-3 font-semibold no-underline transition hover:bg-white/20"
+            <p className="text-lg leading-relaxed text-gray-800">
+              I am the head of the Online Team at the{" "}
+              <a 
+                href="https://www.centreforeffectivealtruism.org/"
+                className="text-[#f50057] hover:underline"
               >
-                {session ? "Sign out" : "Sign in"}
-              </Link>
-            </div>
+                Centre for Effective Altruism
+              </a>
+              . I help run the{" "}
+              <a 
+                href="https://forum.effectivealtruism.org/"
+                className="text-[#f50057] hover:underline"
+              >
+                Effective Altruism Forum
+              </a>
+              .
+            </p>
+
+            <p className="text-lg leading-relaxed text-gray-800">
+              You can find me elsewhere at{" "}
+              <a 
+                href="https://github.com/jpaddison3"
+                className="text-[#f50057] hover:underline"
+              >
+                github
+              </a>
+              {" "}or{" "}
+              <a 
+                href="https://www.linkedin.com/in/jpaddison3/"
+                className="text-[#f50057] hover:underline"
+              >
+                linkedin
+              </a>
+              .
+            </p>
+
+            <p className="text-lg leading-relaxed text-gray-800">
+              You can get in touch with me via{" "}
+              <a 
+                href="mailto:johnpaddison@gmail.com"
+                className="text-[#f50057] hover:underline"
+              >
+                email
+              </a>
+              {" "}or professionally via my{" "}
+              <a 
+                href="mailto:jp@centreforeffectivealtruism.org"
+                className="text-[#f50057] hover:underline"
+              >
+                work email
+              </a>
+              .
+            </p>
           </div>
 
-          {session?.user && <LatestPost />}
+          <div className="flex justify-center md:justify-end">
+            <Image
+              src="https://res.cloudinary.com/jpaddison/image/upload/v1600099735/jp-profile.jpg"
+              alt="profile image"
+              width={160}
+              height={160}
+              className="rounded-full"
+            />
+          </div>
         </div>
-      </main>
-    </HydrateClient>
+      </div>
+    </main>
   );
 }
