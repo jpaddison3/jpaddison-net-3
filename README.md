@@ -1,29 +1,74 @@
-# Create T3 App
+# JP Addison Personal Site & T3 Stack Example
 
-This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
+A minimal personal website built on the [T3 Stack](https://create.t3.gg/), with some basic features to jumpstart future projects.
 
-## What's next? How do I make an app with this?
+## Features
 
-We try to keep this project as simple as possible, so you can start with just the scaffolding we set up for you, and add additional things later when they become necessary.
+- **Homepage** - Short bio and links
+- **Email Authentication** - Magic link system using NextAuth.js (console logging for development)
+- **Protected Routes** - Server-side authentication with automatic redirects
+- **Dual Data Patterns** - Both Server Actions and tRPC implementations side-by-side
 
-If you are not familiar with the different technologies used in this project, please refer to the respective docs. If you still are in the wind, please join our [Discord](https://t3.gg/discord) and ask for help.
+## Tech Stack
 
-- [Next.js](https://nextjs.org)
-- [NextAuth.js](https://next-auth.js.org)
-- [Prisma](https://prisma.io)
-- [Drizzle](https://orm.drizzle.team)
-- [Tailwind CSS](https://tailwindcss.com)
-- [tRPC](https://trpc.io)
+- **Framework**: Next.js 15 with App Router
+- **Authentication**: NextAuth.js v5 with email provider
+- **Database**: Prisma with SQLite (easily swappable)
+- **Styling**: Tailwind CSS v4
+- **Type Safety**: TypeScript with strict configuration
+- **API**: tRPC for type-safe client-server communication
+- **Dev Tools**: ESLint, Prettier, pre-commit hooks
 
-## Learn More
+## Quick Start
 
-To learn more about the [T3 Stack](https://create.t3.gg/), take a look at the following resources:
+```bash
+# Clone and install
+git clone <repo-url>
+cd jpaddison-net-3
+npm install
 
-- [Documentation](https://create.t3.gg/)
-- [Learn the T3 Stack](https://create.t3.gg/en/faq#what-learning-resources-are-currently-available) — Check out these awesome tutorials
+# Set up environment
+cp .env.example .env
+# Generate AUTH_SECRET: npx auth secret
 
-You can check out the [create-t3-app GitHub repository](https://github.com/t3-oss/create-t3-app) — your feedback and contributions are welcome!
+# Initialize database
+npm run db:push
 
-## How do I deploy this?
+# Start development
+npm run dev        # http://localhost:3000
+```
 
-Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/vercel), [Netlify](https://create.t3.gg/en/deployment/netlify) and [Docker](https://create.t3.gg/en/deployment/docker) for more information.
+## Key Pages
+
+- **/** - Homepage
+- **/auth/login** - Email authentication page
+- **/protected** - Authenticated page showcasing Server Actions vs tRPC
+
+## Project Structure
+
+```
+src/
+├── app/
+│   ├── auth/login/          # Email authentication
+│   ├── protected/           # Protected route examples
+│   └── page.tsx             # Homepage
+├── server/
+│   ├── api/routers/         # tRPC routers
+│   └── auth/                # NextAuth.js configuration
+└── trpc/                    # Client-side tRPC setup
+```
+
+## Deployment
+
+This project is ready for deployment on Vercel, Netlify, or any Node.js hosting platform. See the [T3 deployment guides](https://create.t3.gg/en/deployment/vercel) for platform-specific instructions.
+
+## Use as Template
+
+This repository serves as a canonical example of:
+
+- Modern T3 Stack setup with latest practices
+- Authentication patterns for personal sites
+- Server Actions vs tRPC architectural decisions
+- Comprehensive development workflow setup
+
+Perfect for bootstrapping new projects or demonstrating full-stack TypeScript patterns.
