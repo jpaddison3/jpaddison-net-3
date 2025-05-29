@@ -1,5 +1,6 @@
 import { redirect } from "next/navigation";
 import { auth, signOut } from "~/server/auth";
+import { TRPCSection } from "./trpc-section";
 
 async function submitMessage(formData: FormData) {
   "use server";
@@ -65,11 +66,15 @@ export default async function ProtectedPage() {
           <div className="space-y-6">
             <div>
               <h2 className="mb-4 font-sans text-lg font-semibold text-gray-800">
-                Submit a Message
+                Submit a Message (Server Actions)
+                <span className="ml-2 rounded bg-green-100 px-2 py-1 text-xs text-green-700">
+                  Server Action
+                </span>
               </h2>
               <p className="mb-4 text-sm text-gray-600">
-                Type a message below. It will be logged to the server console
-                when submitted.
+                This demonstrates Next.js Server Actions for server-side form
+                handling. The message will be logged to the server console when
+                submitted.
               </p>
 
               <form action={submitMessage} className="space-y-4">
@@ -98,6 +103,8 @@ export default async function ProtectedPage() {
                 </button>
               </form>
             </div>
+
+            <TRPCSection />
 
             <div className="border-t pt-6">
               <h3 className="text-md mb-2 font-sans font-semibold text-gray-800">
