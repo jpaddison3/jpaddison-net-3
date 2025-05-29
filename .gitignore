@@ -43,7 +43,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 
-# idea files
+# editor files
 .idea
 
 # AI tools

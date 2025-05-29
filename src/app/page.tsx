@@ -78,7 +78,7 @@ export default function Home() {
               alt="profile image"
               width={160}
               height={160}
-              className="rounded-full object-cover h-40 w-40"
+              className="h-40 w-40 rounded-full object-cover"
             />
           </div>
         </div>
