@@ -23,21 +23,15 @@ export default function Home() {
               </p>
 
               <p className="text-base leading-relaxed text-gray-800">
-                I am the head of the Online Team at the{" "}
+                I am an AI Systems Specialist{" "}
                 <a
-                  href="https://www.centreforeffectivealtruism.org/"
+                  href="https://80000hours.org/"
                   className="text-blue-600 underline hover:text-blue-800"
                 >
-                  Centre for Effective Altruism
+                  80000 Hours
                 </a>
-                . I help run the{" "}
-                <a
-                  href="https://forum.effectivealtruism.org/"
-                  className="text-blue-600 underline hover:text-blue-800"
-                >
-                  Effective Altruism Forum
-                </a>
-                .
+                . I try to help us provide better career advice by using LLMs to
+                improve our products.
               </p>
 
               <p className="text-base leading-relaxed text-gray-800">
@@ -68,7 +62,7 @@ export default function Home() {
                 </a>{" "}
                 or professionally via my{" "}
                 <a
-                  href="mailto:jp@centreforeffectivealtruism.org"
+                  href="mailto:jp.addison@80000hours.org"
                   className="text-blue-600 underline hover:text-blue-800"
                 >
                   work email
@@ -80,11 +74,11 @@ export default function Home() {
 
           <div className="flex justify-center md:justify-center">
             <Image
-              src="https://res.cloudinary.com/jpaddison/image/upload/v1600099735/jp-profile.jpg"
+              src="https://res.cloudinary.com/jpaddison/image/upload/v1748533766/gwwc-headshot-small_cvk8r5.jpg"
               alt="profile image"
               width={160}
               height={160}
-              className="rounded-full"
+              className="rounded-full object-cover h-40 w-40"
             />
           </div>
         </div>
