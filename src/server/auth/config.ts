@@ -1,6 +1,6 @@
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { type DefaultSession, type NextAuthConfig } from "next-auth";
-import DiscordProvider from "next-auth/providers/discord";
+import EmailProvider from "next-auth/providers/email";
 
 import { db } from "~/server/db";
 
@@ -32,16 +32,25 @@ declare module "next-auth" {
  */
 export const authConfig = {
   providers: [
-    DiscordProvider,
-    /**
-     * ...add more providers here.
-     *
-     * Most other providers require a bit more work than the Discord provider. For example, the
-     * GitHub provider requires you to add the `refresh_token_expires_in` field to the Account
-     * model. Refer to the NextAuth.js docs for the provider you want to use. Example:
-     *
-     * @see https://next-auth.js.org/providers/github
-     */
+    EmailProvider({
+      server: {
+        host: "smtp.postmarkapp.com",
+        port: 587,
+        auth: {
+          user: "your-postmark-server-token",
+          pass: "your-postmark-server-token",
+        },
+      },
+      from: "auth@jpaddison.net",
+      sendVerificationRequest: async ({ identifier, url, provider }) => {
+        // Instead of sending an email via Postmark, console log it for development
+        console.log("🔐 Authentication Email");
+        console.log("📧 To:", identifier);
+        console.log("🔗 Magic Link:\n", url);
+        console.log("🏢 From:", provider.from);
+        console.log("─".repeat(80));
+      },
+    }),
   ],
   adapter: PrismaAdapter(db),
   callbacks: {
