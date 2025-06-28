@@ -35,6 +35,16 @@ export default function Home() {
               </p>
 
               <p className="text-base leading-relaxed text-gray-800">
+                Previously I cofounded the{" "}
+                <a
+                  href="https://forum.effectivealtruism.org/"
+                  className="text-blue-600 underline hover:text-blue-800"
+                >
+                  EA Forum 2.0.
+                </a>
+              </p>
+
+              <p className="text-base leading-relaxed text-gray-800">
                 You can find me elsewhere at{" "}
                 <a
                   href="https://github.com/jpaddison3"
@@ -49,11 +59,7 @@ export default function Home() {
                 >
                   linkedin
                 </a>
-                .
-              </p>
-
-              <p className="text-base leading-relaxed text-gray-800">
-                You can get in touch with me via{" "}
+                , and you can get in touch with me via{" "}
                 <a
                   href="mailto:johnpaddison@gmail.com"
                   className="text-blue-600 underline hover:text-blue-800"
