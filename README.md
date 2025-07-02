@@ -8,6 +8,7 @@ A minimal personal website built on the [T3 Stack](https://create.t3.gg/), with 
 - **Email Authentication** - Magic link system using NextAuth.js (console logging for development)
 - **Protected Routes** - Server-side authentication with automatic redirects
 - **Dual Data Patterns** - Both Server Actions and tRPC implementations side-by-side
+- **Structured Logging** - Logging system with configurable verbosity
 
 ## Tech Stack
 
@@ -56,6 +57,43 @@ src/
 │   ├── api/routers/         # tRPC routers
 │   └── auth/                # NextAuth.js configuration
 └── trpc/                    # Client-side tRPC setup
+```
+
+## Logging System
+
+The application includes a structured logging system with configurable verbosity.
+
+### Configuration
+
+Set the log level via environment variable:
+
+```bash
+NEXT_PUBLIC_LOG_LEVEL="debug"  # Shows all logs including detailed debugging
+NEXT_PUBLIC_LOG_LEVEL="info"   # Default - shows operational info
+NEXT_PUBLIC_LOG_LEVEL="warn"   # Only warnings and errors
+NEXT_PUBLIC_LOG_LEVEL="error"  # Only errors
+```
+
+### Usage
+
+Import and use the pre-configured loggers:
+
+```typescript
+// Use pre-configured named loggers
+import { authLogger, apiLogger, dbLogger } from "~/lib/logger";
+
+// Log with context
+authLogger.info("User logged in", { userId: user.id });
+apiLogger.debug("API request", { endpoint: "/api/users", method: "GET" });
+
+// Create custom loggers for new features
+import { createLogger } from "~/lib/logger";
+const myFeatureLogger = createLogger("MY_FEATURE");
+myFeatureLogger.warn("Validation failed", { field: "email" });
+
+// Context-scoped logging
+const userLogger = authLogger.withContext({ userId: "123" });
+userLogger.info("Session created"); // Automatically includes userId
 ```
 
 ## Deployment

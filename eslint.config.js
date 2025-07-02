@@ -34,6 +34,7 @@ export default tseslint.config(
         { checksVoidReturn: { attributes: false } },
       ],
       "react/no-unescaped-entities": ["error", { forbid: [">", "}"] }],
+      "no-console": ["error", { allow: [] }],
     },
   },
   {
