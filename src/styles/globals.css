@@ -3,4 +3,47 @@
 @theme {
   --font-sans: Helvetica, "Helvetica Neue", Arial, sans-serif;
   --font-serif: Georgia, "Times New Roman", Times, serif;
+  
+  /* Brand colors */
+  --color-brand-primary: #71eeb8;
+  --color-brand-hover: #5fe2a3;
+  --color-brand-light: rgb(113 238 184 / 0.1);
+  --color-brand-focus: rgb(113 238 184 / 0.2);
+  
+  /* Semantic color aliases - Warning (maps to Tailwind's orange) */
+  --color-warning-50: var(--color-orange-50);
+  --color-warning-100: var(--color-orange-100);
+  --color-warning-200: var(--color-orange-200);
+  --color-warning-500: var(--color-orange-500);
+  --color-warning-600: var(--color-orange-600);
+  --color-warning-700: var(--color-orange-700);
+  --color-warning-800: var(--color-orange-800);
+  --color-warning-900: var(--color-orange-900);
+  
+  /* Semantic color aliases - Error (maps to Tailwind's red) */
+  --color-error-50: var(--color-red-50);
+  --color-error-100: var(--color-red-100);
+  --color-error-300: var(--color-red-300);
+  --color-error-500: var(--color-red-500);
+  --color-error-600: var(--color-red-600);
+  --color-error-700: var(--color-red-700);
+  --color-error-800: var(--color-red-800);
+  --color-error-900: var(--color-red-900);
+  
+  /* Semantic color aliases - Success (maps to Tailwind's green) */
+  --color-success-50: var(--color-green-50);
+  --color-success-100: var(--color-green-100);
+  --color-success-200: var(--color-green-200);
+  --color-success-600: var(--color-green-600);
+  --color-success-700: var(--color-green-700);
+  --color-success-800: var(--color-green-800);
+  
+  /* Semantic color aliases - Info (maps to Tailwind's blue) */
+  --color-info-50: var(--color-blue-50);
+  --color-info-100: var(--color-blue-100);
+  --color-info-200: var(--color-blue-200);
+  --color-info-500: var(--color-blue-500);
+  --color-info-600: var(--color-blue-600);
+  --color-info-700: var(--color-blue-700);
+  --color-info-800: var(--color-blue-800);
 }

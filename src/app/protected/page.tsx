@@ -1,6 +1,8 @@
 import { redirect } from "next/navigation";
 import { auth, signOut } from "~/server/auth";
 import { TRPCSection } from "./trpc-section";
+import { Button, IconButton } from "~/components/ui";
+import { apiLogger } from "~/lib/logger";
 
 async function submitMessage(formData: FormData) {
   "use server";
@@ -15,15 +17,12 @@ async function submitMessage(formData: FormData) {
     throw new Error("Message is required");
   }
 
-  // Console log the message (same as tRPC version)
-  console.log("💬 Message Submitted (Server Action)");
-  console.log(
-    "👤 User:",
-    session.user?.email ?? session.user?.name ?? "Unknown",
-  );
-  console.log("📝 Content:", content);
-  console.log("⏰ Timestamp:", new Date().toISOString());
-  console.log("─".repeat(80));
+  // Log the message (same as tRPC version)
+  apiLogger.info("Message Submitted (Server Action)", {
+    user: session.user?.email ?? session.user?.name ?? "Unknown",
+    content,
+    timestamp: new Date().toISOString(),
+  });
 }
 
 async function handleSignOut() {
@@ -54,12 +53,9 @@ export default async function ProtectedPage() {
               </p>
             </div>
             <form action={handleSignOut}>
-              <button
-                type="submit"
-                className="rounded-md bg-red-600 px-4 py-2 text-sm text-white hover:bg-red-700"
-              >
+              <Button type="submit" variant="danger" size="sm">
                 Sign Out
-              </button>
+              </Button>
             </form>
           </div>
 
@@ -95,16 +91,82 @@ export default async function ProtectedPage() {
                   />
                 </div>
 
-                <button
-                  type="submit"
-                  className="rounded-md bg-blue-600 px-4 py-2 font-medium text-white transition-colors hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:outline-none"
-                >
+                <Button type="submit" variant="primary">
                   Submit Message
-                </button>
+                </Button>
               </form>
             </div>
 
             <TRPCSection />
+
+            <div className="border-t pt-6">
+              <h3 className="text-md mb-4 font-sans font-semibold text-gray-800">
+                Button Component Showcase
+              </h3>
+
+              <div className="space-y-4">
+                <div>
+                  <h4 className="mb-2 text-sm font-medium text-gray-700">
+                    Variants
+                  </h4>
+                  <div className="flex flex-wrap gap-2">
+                    <Button variant="primary">Primary</Button>
+                    <Button variant="secondary">Secondary</Button>
+                    <Button variant="outline">Outline</Button>
+                    <Button variant="ghost">Ghost</Button>
+                    <Button variant="danger">Danger</Button>
+                    <Button variant="success">Success</Button>
+                    <Button variant="warning">Warning</Button>
+                    <Button variant="info">Info</Button>
+                  </div>
+                </div>
+
+                <div>
+                  <h4 className="mb-2 text-sm font-medium text-gray-700">
+                    Sizes
+                  </h4>
+                  <div className="flex items-center gap-2">
+                    <Button size="sm">Small</Button>
+                    <Button size="md">Medium</Button>
+                    <Button size="lg">Large</Button>
+                  </div>
+                </div>
+
+                <div>
+                  <h4 className="mb-2 text-sm font-medium text-gray-700">
+                    States
+                  </h4>
+                  <div className="flex flex-wrap gap-2">
+                    <Button loading>Loading</Button>
+                    <Button disabled>Disabled</Button>
+                    <Button fullWidth>Full Width</Button>
+                  </div>
+                </div>
+
+                <div>
+                  <h4 className="mb-2 text-sm font-medium text-gray-700">
+                    Icon Buttons
+                  </h4>
+                  <div className="flex items-center gap-2">
+                    <IconButton aria-label="Settings" variant="primary">
+                      ⚙️
+                    </IconButton>
+                    <IconButton aria-label="Add" variant="secondary">
+                      ➕
+                    </IconButton>
+                    <IconButton aria-label="Delete" variant="danger">
+                      🗑️
+                    </IconButton>
+                    <IconButton aria-label="Recording" variant="recording">
+                      🔴
+                    </IconButton>
+                    <IconButton aria-label="Loading example" loading>
+                      ⏳
+                    </IconButton>
+                  </div>
+                </div>
+              </div>
+            </div>
 
             <div className="border-t pt-6">
               <h3 className="text-md mb-2 font-sans font-semibold text-gray-800">

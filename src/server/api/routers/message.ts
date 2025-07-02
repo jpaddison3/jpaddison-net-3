@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { createTRPCRouter, protectedProcedure } from "~/server/api/trpc";
+import { trpcLogger } from "~/lib/logger";
 
 export const messageRouter = createTRPCRouter({
   submit: protectedProcedure
@@ -8,12 +9,12 @@ export const messageRouter = createTRPCRouter({
       const { content } = input;
       const user = ctx.session.user;
 
-      // Console log the message instead of storing it
-      console.log("💬 Message Submitted");
-      console.log("👤 User:", user.email ?? user.name ?? "Unknown");
-      console.log("📝 Content:", content);
-      console.log("⏰ Timestamp:", new Date().toISOString());
-      console.log("─".repeat(80));
+      // Log the message instead of storing it
+      trpcLogger.info("Message Submitted", {
+        user: user.email ?? user.name ?? "Unknown",
+        content,
+        timestamp: new Date().toISOString(),
+      });
 
       // Return success response
       return {

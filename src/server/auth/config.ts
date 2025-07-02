@@ -3,6 +3,7 @@ import { type DefaultSession, type NextAuthConfig } from "next-auth";
 import EmailProvider from "next-auth/providers/email";
 
 import { db } from "~/server/db";
+import { authLogger } from "~/lib/logger";
 
 /**
  * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`
@@ -43,12 +44,12 @@ export const authConfig = {
       },
       from: "auth@jpaddison.net",
       sendVerificationRequest: async ({ identifier, url, provider }) => {
-        // Instead of sending an email via Postmark, console log it for development
-        console.log("🔐 Authentication Email");
-        console.log("📧 To:", identifier);
-        console.log("🔗 Magic Link:\n", url);
-        console.log("🏢 From:", provider.from);
-        console.log("─".repeat(80));
+        // Instead of sending an email via Postmark, log it for development
+        authLogger.info("Authentication Email", {
+          to: identifier,
+          magicLink: url,
+          from: provider.from,
+        });
       },
     }),
   ],

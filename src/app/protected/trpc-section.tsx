@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import { api } from "~/trpc/react";
+import { Button } from "~/components/ui";
+import { apiLogger } from "~/lib/logger";
 
 export function TRPCSection() {
   const [postName, setPostName] = useState("");
@@ -33,7 +35,7 @@ export function TRPCSection() {
     try {
       await createPost.mutateAsync({ name: postName });
     } catch (error) {
-      console.error("Error creating post:", error);
+      apiLogger.error("Error creating post", { error: String(error) });
     }
   };
 
@@ -48,7 +50,7 @@ export function TRPCSection() {
       await submitMessage.mutateAsync({ content });
       (e.target as HTMLFormElement).reset();
     } catch (error) {
-      console.error("Error submitting message:", error);
+      apiLogger.error("Error submitting message", { error: String(error) });
     }
   };
 
@@ -83,13 +85,14 @@ export function TRPCSection() {
               className="block w-full rounded-md border border-gray-300 px-3 py-2 text-sm shadow-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
               required
             />
-            <button
+            <Button
               type="submit"
-              disabled={submitMessage.isPending}
-              className="rounded-md bg-purple-600 px-3 py-2 text-sm text-white hover:bg-purple-700 disabled:bg-gray-300"
+              size="sm"
+              variant="primary"
+              loading={submitMessage.isPending}
             >
               {submitMessage.isPending ? "Submitting..." : "Submit via tRPC"}
-            </button>
+            </Button>
           </form>
           {submitMessage.data && (
             <div className="mt-2 rounded-md bg-purple-50 p-3 text-sm text-purple-700">
@@ -157,13 +160,15 @@ export function TRPCSection() {
                   className="block w-full rounded-md border border-gray-300 px-3 py-2 text-sm shadow-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
                   required
                 />
-                <button
+                <Button
                   type="submit"
-                  disabled={createPost.isPending || !postName.trim()}
-                  className="rounded-md bg-green-600 px-3 py-2 text-sm text-white hover:bg-green-700 disabled:bg-gray-300"
+                  size="sm"
+                  variant="success"
+                  disabled={!postName.trim()}
+                  loading={createPost.isPending}
                 >
                   {createPost.isPending ? "Creating..." : "Create Post"}
-                </button>
+                </Button>
               </form>
             </div>
 

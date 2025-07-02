@@ -1,6 +1,7 @@
 import { signIn } from "~/server/auth";
 import { redirect } from "next/navigation";
 import { LoginForm, type ActionState } from "./login-form";
+import { authLogger } from "~/lib/logger";
 
 async function submitEmail(formData: FormData): Promise<ActionState> {
   "use server";
@@ -19,7 +20,7 @@ async function submitEmail(formData: FormData): Promise<ActionState> {
 
     return { success: true as const, email };
   } catch (error) {
-    console.error("Sign in error:", error);
+    authLogger.error("Sign in error", { error: String(error) });
     return { error: "Failed to send magic link" };
   }
 }
