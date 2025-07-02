@@ -1,7 +1,14 @@
 import { redirect } from "next/navigation";
 import { auth, signOut } from "~/server/auth";
 import { TRPCSection } from "./trpc-section";
-import { Button, IconButton } from "~/components/ui";
+import { UIShowcase } from "./ui-showcase";
+import {
+  Button,
+  IconButton,
+  LoadingSpinner,
+  InlineLoadingSpinner,
+  TypingIndicator,
+} from "~/components/ui";
 import { apiLogger } from "~/lib/logger";
 
 async function submitMessage(formData: FormData) {
@@ -167,6 +174,61 @@ export default async function ProtectedPage() {
                 </div>
               </div>
             </div>
+
+            <div className="border-t pt-6">
+              <h3 className="text-md mb-4 font-sans font-semibold text-gray-800">
+                Loading Spinner Showcase
+              </h3>
+
+              <div className="space-y-4">
+                <div>
+                  <h4 className="mb-2 text-sm font-medium text-gray-700">
+                    Sizes
+                  </h4>
+                  <div className="flex items-center gap-4">
+                    <LoadingSpinner size="xs" />
+                    <LoadingSpinner size="sm" />
+                    <LoadingSpinner size="md" />
+                    <LoadingSpinner size="lg" />
+                    <LoadingSpinner size="xl" />
+                  </div>
+                </div>
+
+                <div>
+                  <h4 className="mb-2 text-sm font-medium text-gray-700">
+                    With Label
+                  </h4>
+                  <div className="space-y-2">
+                    <LoadingSpinner size="sm" label="Loading data..." />
+                    <LoadingSpinner size="md" label="Processing..." center />
+                  </div>
+                </div>
+
+                <div>
+                  <h4 className="mb-2 text-sm font-medium text-gray-700">
+                    Inline Loading
+                  </h4>
+                  <div className="space-y-2">
+                    <InlineLoadingSpinner message="Fetching results..." />
+                    <InlineLoadingSpinner
+                      message="Saving changes..."
+                      size="xs"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <h4 className="mb-2 text-sm font-medium text-gray-700">
+                    Typing Indicator (Dots)
+                  </h4>
+                  <div className="rounded-lg bg-gray-100 p-4">
+                    <TypingIndicator />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <UIShowcase />
 
             <div className="border-t pt-6">
               <h3 className="text-md mb-2 font-sans font-semibold text-gray-800">
