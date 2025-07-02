@@ -61,5 +61,10 @@ export const authConfig = {
         id: user.id,
       },
     }),
+    redirect({ url, baseUrl }) {
+      // Redirect to homepage after login unless there's a specific callback URL
+      if (url.startsWith(baseUrl)) return url;
+      return baseUrl;
+    },
   },
 } satisfies NextAuthConfig;
