@@ -1,0 +1,14 @@
+#!/bin/sh
+
+# Check TypeScript types
+npm run typecheck
+
+# Lint code with ESLint
+npm run lint
+
+# Check if files are properly formatted (without modifying them)
+if ! npm run format:check; then
+  echo "❌ Some files are not properly formatted."
+  echo "Please run 'npm run format:write' and stage the changes, then commit again."
+  exit 1
+fi

@@ -12,8 +12,8 @@
     "db:studio": "prisma studio",
     "dev": "next dev --turbo",
     "dev:log": "next dev --turbo 2>&1 | tee dev.log",
-    "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,mdx}\" --cache",
-    "format:write": "prettier --write \"**/*.{ts,tsx,js,jsx,mdx}\" --cache",
+    "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx}\" --cache",
+    "format:write": "prettier --write \"**/*.{ts,tsx,js,jsx}\" --cache",
     "postinstall": "prisma generate",
     "lint": "next lint",
     "lint:fix": "next lint --fix",
@@ -23,7 +23,8 @@
     "typecheck:watch": "tsc --noEmit --watch --preserveWatchOutput",
     "typecheck:watch:log": "tsc --noEmit --watch --preserveWatchOutput 2>&1 | tee typecheck.log",
     "lint:watch": "onchange 'src/**/*.{ts,tsx}' -- npm run lint",
-    "lint:watch:log": "onchange 'src/**/*.{ts,tsx}' -- npm run lint 2>&1 | tee lint.log"
+    "lint:watch:log": "onchange 'src/**/*.{ts,tsx}' -- npm run lint 2>&1 | tee lint.log",
+    "prepare": "husky"
   },
   "dependencies": {
     "@auth/prisma-adapter": "^2.7.2",
@@ -52,6 +53,7 @@
     "@types/react-dom": "^19.0.0",
     "eslint": "^9.23.0",
     "eslint-config-next": "^15.2.3",
+    "husky": "^9.1.7",
     "onchange": "^7.1.0",
     "postcss": "^8.5.3",
     "prettier": "^3.5.3",
