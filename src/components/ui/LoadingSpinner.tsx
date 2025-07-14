@@ -2,30 +2,33 @@ import React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 import { clsx } from "clsx";
 
-const spinnerVariants = cva(
-  "border-brand-primary animate-spin rounded-full border-b-2",
-  {
-    variants: {
-      size: {
-        xs: "h-3 w-3",
-        sm: "h-4 w-4",
-        md: "h-6 w-6",
-        lg: "h-8 w-8",
-        xl: "h-12 w-12",
-      },
-      variant: {
-        // Main spinner - circular border animation
-        spinner: "",
-        // Dots animation for typing indicators
-        dots: "!border-0 !animate-none flex items-center gap-1",
-      },
+const spinnerVariants = cva("animate-spin rounded-full border-b-2", {
+  variants: {
+    size: {
+      xs: "h-3 w-3",
+      sm: "h-4 w-4",
+      md: "h-6 w-6",
+      lg: "h-8 w-8",
+      xl: "h-12 w-12",
     },
-    defaultVariants: {
-      variant: "spinner",
-      size: "md",
+    variant: {
+      // Main spinner - circular border animation
+      spinner: "",
+      // Dots animation for typing indicators
+      dots: "!border-0 !animate-none flex items-center gap-1",
+    },
+    colorScheme: {
+      brand: "border-brand-primary",
+      gray: "border-gray-400",
+      white: "border-white",
     },
   },
-);
+  defaultVariants: {
+    variant: "spinner",
+    size: "md",
+    colorScheme: "brand",
+  },
+});
 
 export interface LoadingSpinnerProps
   extends React.HTMLAttributes<HTMLDivElement>,
@@ -37,72 +40,98 @@ export interface LoadingSpinnerProps
 export const LoadingSpinner = React.forwardRef<
   HTMLDivElement,
   LoadingSpinnerProps
->(({ className, variant, size, label, center = false, ...props }, ref) => {
-  if (variant === "dots") {
-    const dotSize =
-      size === "xs" ? "h-2 w-2" : size === "sm" ? "h-2 w-2" : "h-3 w-3";
+>(
+  (
+    { className, variant, size, colorScheme, label, center = false, ...props },
+    ref,
+  ) => {
+    if (variant === "dots") {
+      const dotSize =
+        size === "xs" ? "h-2 w-2" : size === "sm" ? "h-2 w-2" : "h-3 w-3";
 
-    return (
-      <div
-        className={clsx(
-          spinnerVariants({ variant }),
-          center && "justify-center",
-          className,
-        )}
-        ref={ref}
-        {...props}
-      >
+      const dotColorClass =
+        colorScheme === "gray"
+          ? "bg-gray-400"
+          : colorScheme === "white"
+            ? "bg-white"
+            : "bg-brand-primary";
+
+      return (
         <div
           className={clsx(
-            "bg-brand-primary aspect-square flex-shrink-0",
-            dotSize,
-            "animate-bounce rounded-full [animation-delay:-0.3s]",
+            spinnerVariants({ variant }),
+            center && "justify-center",
+            className,
           )}
-        />
+          ref={ref}
+          {...props}
+        >
+          <div
+            className={clsx(
+              dotColorClass,
+              "aspect-square flex-shrink-0",
+              dotSize,
+              "animate-bounce rounded-full [animation-delay:-0.3s]",
+            )}
+          />
+          <div
+            className={clsx(
+              dotColorClass,
+              "aspect-square flex-shrink-0",
+              dotSize,
+              "animate-bounce rounded-full [animation-delay:-0.15s]",
+            )}
+          />
+          <div
+            className={clsx(
+              dotColorClass,
+              "aspect-square flex-shrink-0",
+              dotSize,
+              "animate-bounce rounded-full",
+            )}
+          />
+        </div>
+      );
+    }
+
+    // Default spinner variant
+    const content = (
+      <>
         <div
           className={clsx(
-            "bg-brand-primary aspect-square flex-shrink-0",
-            dotSize,
-            "animate-bounce rounded-full [animation-delay:-0.15s]",
+            spinnerVariants({ variant, size, colorScheme }),
+            className,
           )}
+          ref={ref}
+          role="status"
+          aria-label={label ?? "Loading"}
+          {...props}
         />
-        <div
-          className={clsx(
-            "bg-brand-primary aspect-square flex-shrink-0",
-            dotSize,
-            "animate-bounce rounded-full",
-          )}
-        />
-      </div>
+        {!label && <span className="sr-only">Loading</span>}
+      </>
     );
-  }
 
-  // Default spinner variant
-  const content = (
-    <div
-      className={clsx(spinnerVariants({ variant, size }), className)}
-      ref={ref}
-      {...props}
-    />
-  );
+    if (label) {
+      return (
+        <div
+          className={clsx(
+            "flex items-center gap-2",
+            center && "justify-center",
+          )}
+        >
+          {content}
+          <span className="text-sm text-gray-600">{label}</span>
+        </div>
+      );
+    }
 
-  if (label) {
-    return (
-      <div
-        className={clsx("flex items-center gap-2", center && "justify-center")}
-      >
-        {content}
-        <span className="text-sm text-gray-600">{label}</span>
-      </div>
-    );
-  }
+    if (center) {
+      return <div className="flex items-center justify-center">{content}</div>;
+    }
 
-  if (center) {
-    return <div className="flex items-center justify-center">{content}</div>;
-  }
-
-  return content;
-});
+    return content;
+  },
+);
 
 LoadingSpinner.displayName = "LoadingSpinner";
 
