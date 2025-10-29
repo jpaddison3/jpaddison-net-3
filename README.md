@@ -44,6 +44,7 @@ npm run dev        # http://localhost:3000
 - **/** - Homepage
 - **/auth/login** - Email authentication page
 - **/protected** - Authenticated page showcasing Server Actions vs tRPC
+- **/text-chunker** - Text chunking tool for splitting large texts based on token limits
 
 ## Project Structure
 
