@@ -23,7 +23,7 @@ export default function Home() {
               </p>
 
               <p className="text-base leading-relaxed text-gray-800">
-                I am an AI Systems Specialist{" "}
+                I am an AI Product Engineer at{" "}
                 <a
                   href="https://80000hours.org/"
                   className="text-blue-600 underline hover:text-blue-800"
