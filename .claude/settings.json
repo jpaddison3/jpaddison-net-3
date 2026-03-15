@@ -1,8 +1,13 @@
 {
   "hooks": {
-    "stop": [
+    "Stop": [
       {
-        "command": "test -z \"$(git status --porcelain)\" && exit 0 || npm run parallel-check:quiet:no-tests"
+        "hooks": [
+          {
+            "type": "command",
+            "command": "test -z \"$(git status --porcelain)\" && exit 0 || npm run parallel-check:quiet:no-tests"
+          }
+        ]
       }
     ]
   }
