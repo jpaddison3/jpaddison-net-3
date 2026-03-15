@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "build": "next build",
-    "check": "next lint && tsc --noEmit",
+    "check": "eslint --max-warnings 0 --cache . && tsc --noEmit",
     "db:generate": "prisma migrate dev",
     "db:migrate": "prisma migrate deploy",
     "db:push": "prisma db push",
@@ -14,9 +14,9 @@
     "dev:log": "next dev --turbo 2>&1 | tee dev.log",
     "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx}\" --cache",
     "format:write": "prettier --write \"**/*.{ts,tsx,js,jsx}\" --cache",
-    "postinstall": "prisma generate",
-    "lint": "next lint",
-    "lint:fix": "next lint --fix",
+    "postinstall": "prisma generate --no-hints",
+    "lint": "eslint --max-warnings 0 --cache .",
+    "lint:fix": "eslint --fix .",
     "preview": "next build && next start",
     "start": "next start",
     "typecheck": "tsc --noEmit",
@@ -27,7 +27,11 @@
     "prepare": "husky",
     "test": "vitest run",
     "test:watch": "vitest",
-    "test:coverage": "vitest run --coverage"
+    "test:coverage": "vitest run --coverage",
+    "parallel-check": "tsx scripts/parallel-check.ts",
+    "parallel-check:quiet": "tsx scripts/parallel-check.ts --quiet",
+    "parallel-check:no-tests": "tsx scripts/parallel-check.ts --no-tests",
+    "parallel-check:quiet:no-tests": "tsx scripts/parallel-check.ts --quiet --no-tests"
   },
   "dependencies": {
     "@auth/prisma-adapter": "^2.7.2",
@@ -67,6 +71,7 @@
     "prettier-plugin-tailwindcss": "^0.6.11",
     "prisma": "^6.5.0",
     "tailwindcss": "^4.0.15",
+    "tsx": "^4.21.0",
     "typescript": "^5.8.2",
     "typescript-eslint": "^8.27.0",
     "vitest": "^3.2.4"
@@ -74,6 +79,9 @@
   "overrides": {
     "@auth/core": "0.41.1",
     "brace-expansion": "1.1.12"
+  },
+  "engines": {
+    "node": ">=22"
   },
   "ct3aMetadata": {
     "initVersion": "7.39.3"

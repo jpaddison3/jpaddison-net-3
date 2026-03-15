@@ -1,0 +1,4 @@
+#!/bin/sh
+
+./scripts/clean-caches.sh
+npx prisma generate --no-hints

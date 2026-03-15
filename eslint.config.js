@@ -7,7 +7,13 @@ const compat = new FlatCompat({
 
 export default tseslint.config(
   {
-    ignores: [".next"],
+    ignores: [
+      ".next",
+      "scripts/**",
+      "coverage/**",
+      "next-env.d.ts",
+      "*.config.js",
+    ],
   },
   ...compat.extends("next/core-web-vitals"),
   {
@@ -35,6 +41,14 @@ export default tseslint.config(
       ],
       "react/no-unescaped-entities": ["error", { forbid: [">", "}"] }],
       "no-console": "error",
+      "no-restricted-syntax": [
+        "error",
+        {
+          selector: 'LogicalExpression[operator="??"] > Literal[value=""]',
+          message:
+            'Avoid using `?? ""` - this hides missing data from TypeScript.',
+        },
+      ],
     },
   },
   {

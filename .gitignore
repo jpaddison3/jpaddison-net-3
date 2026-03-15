@@ -42,11 +42,13 @@ yarn-error.log*
 
 # typescript
 *.tsbuildinfo
+.eslintcache
 
 # editor files
 .idea
 
 # AI tools
 CLAUDE.md
+tmp/
 
 notes/
